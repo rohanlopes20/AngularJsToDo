@@ -1,0 +1,69 @@
+<!doctype html>
+<html ng-app="noteApp">
+  <head>
+        <title>Rohan's ToDO App</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="https://npmcdn.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
+        <script src="js/angular-masonry-directive.js"></script>
+        <script src="js/noteApp.js"></script>
+        <script src="js/gapp-notify.js"></script>
+    <style type="text/css">
+        body {
+            background-color: #e8e8e8;
+        }
+        .note {
+                width:   : 350px;
+                margin  : 10px;
+                padding : 25px 30px;
+                font-family: 'Roboto','Droid Sans',arial,sans-serif;
+                font-weight: 500;
+                font-size: 19px;
+                box-shadow: 3px 8px 5px #888888;
+                background-color    : #DC3023;
+        }
+
+        .grid-item { width: 200px; }
+
+        .note-name {
+             font-weight: 600;
+             font-size: 16px;
+        }
+        .note-desc {
+             font-weight: 500;
+             font-size: 12px;
+        }
+        .search-box input{
+            padding: 8px 20px;
+            width: 90%;
+            border: 1px solid red;
+            border-radius: 18px;
+            outline: none;
+        }
+        .search-box {
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+        }
+        .add-node-box input{
+            border: 1px solid red;
+            outline: none;
+            padding: 8px 8px;
+            width: 80%;
+        }
+        .add-node-box{
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+            padding: 16px 200px;
+            background-color: #9D2933;
+        }
+    </style>
+  </head>
+  <body>
+        <div ng-controller="noteAppController">
+            <div ng-view></div>
+        </div>
+  </body>
+</html>
