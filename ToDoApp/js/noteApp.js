@@ -37,22 +37,33 @@ noteApp.controller('ViewNotesController', ['$scope' ,'$http', function($scope, $
     });*/
     showNotes();
 
-    $scope.keyPress = function(keyCode){
+    $scope.fnAddNote = function(keyCode){
     	addNote(keyCode);
+    }
+
+    $scope.closeMe = function(){
+         // $(".wrapper-box, .wrapper-main").hide();
+    }
+
+    $scope.fnAddNoteMain = function(keyCode){
+        $(".wrapper-box, .wrapper-main").show();
     }
 
     function addNote(keyCode) {
 	    var NotesArray = JSON.parse(localStorage.getItem("Notes")) || [];
 		$scope.NoteData = NotesArray;
 
-		$scope.keyPress = function(keyCode) {
+		$scope.fnAddNote = function(keyCode) {
+
 			if(keyCode.charCode == 13) {
-				var newNote = $("[name='newNote']").val();
+				var newNoteName = $("[name='newNoteName']").val();
+                var newNoteDesc = $("[name='newNoteDesc']").val();
+                var newNoteTime = $("[name='newNoteTime']").val();
 				var note 			= {};
 					note.id 		= 2;
-					note.desc 		= newNote;
-					note.name 		= "";
-					note.timeOut 	= 1000;
+					note.desc 		= newNoteDesc;
+					note.name 		= newNoteName;
+					note.timeOut 	= newNoteTime;
 					note.color 		= { "background-color" : globalColorArray[randomRange(0, globalColorArray.length)] };
 				NotesArray.push(note);
 
@@ -60,6 +71,7 @@ noteApp.controller('ViewNotesController', ['$scope' ,'$http', function($scope, $
 
 				localStorage.setItem("Notes", JSON.stringify(NotesArray));
 				$("[name='newNote']").val("");
+                $(".wrapper-box, .wrapper-main").hide();
 				showNotes();
 			}
 		}
@@ -69,10 +81,13 @@ noteApp.controller('ViewNotesController', ['$scope' ,'$http', function($scope, $
 		var NotesArray = JSON.parse(localStorage.getItem("Notes")) || [];
 		if (NotesArray.length > 0) {
 			$scope.NoteData = NotesArray;
-		}
 
-		// console.log(NotesArray);
-
+            for(var i = 0; i < NotesArray.length; i++){
+                if(NotesArray[i].timeOut != "") {
+                    setNoteTimeOut(NotesArray[i]);
+                }            
+            }
+        }
 	}
 }]);
 
@@ -86,7 +101,7 @@ function setNoteTimeOut(objNote) {
 	try {	
 		setTimeout(function(){
 			console.log(objNote.desc);
-            notifyMe(objNote.desc);
+            // notifyMe(objNote.desc);
 		}, objNote.timeOut);
 	} catch (e){
 		console.error(e);

@@ -1,0 +1,85 @@
+body {
+    background-color: #e8e8e8;
+}
+.note {
+    width:   : 350px;
+    margin  : 10px;
+    padding : 25px 30px;
+    font-family: 'Roboto','Droid Sans',arial,sans-serif;
+    font-weight: 500;
+    font-size: 19px;
+    box-shadow: 3px 8px 5px #888888;
+    background-color    : #DC3023;
+    z-index: -1;
+}
+
+.grid-item { width: 200px; }
+
+.note-name {
+     font-weight: 600;
+     font-size: 16px;
+}
+.note-desc {
+     font-weight: 500;
+     font-size: 12px;
+}
+.search-box input{
+    padding: 8px 20px;
+    width: 90%;
+    border: 1px solid red;
+    border-radius: 18px;
+    outline: none;
+}
+.search-box {
+    margin: 20px auto;
+    display: block;
+    text-align: center;
+}
+.add-node-box input{
+    border: 1px solid red;
+    outline: none;
+    padding: 8px 8px;
+    width: 80%;
+}
+.add-node-box{
+    margin: 20px auto;
+    display: block;
+    text-align: center;
+    padding: 16px 200px;
+    background-color: #9D2933;
+}
+.wrapper-box{
+    background-color: #C3272B;
+    opacity: 1;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right:0;
+    z-index: 99;
+    display: none;
+}
+.wrapper-main {
+    margin: 14% auto;
+    border: 1px solid black;
+    width: 432px;
+    padding: 53px 51px;
+    background-color:#D24D57;
+    z-index: 9999;
+    display: none;
+    font-family: 'Roboto','Droid Sans',arial,sans-serif;
+    font-weight: 500;
+    font-size: 19px;
+}
+
+.wrapper-main input{
+    outline: none;
+    border: none;
+    background-color: #D24D57;
+    border-bottom: 1px solid gray;
+    padding: 7px 13px;
+    width: 90%;
+}
+.wrapper-main span {
+     text-align: center;
+}

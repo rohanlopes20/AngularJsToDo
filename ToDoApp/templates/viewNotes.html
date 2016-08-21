@@ -1,6 +1,14 @@
 <div ng-controller="AddNoteController">
     <div class="add-node-box">
-    	<input type="text" name="newNote" value="" placeholder="Add Note" ng-keypress="keyPress($event)"/>
+    	<input type="text" name="newNote" value="" placeholder="Add Note" ng-click="fnAddNoteMain($event)"/>
+    </div>
+    <div class="wrapper-box" ng-click="closeMe()">
+    	<div class="wrapper-main">
+    		<span>Add new Note</span><br/><br/>
+    		<input type="text" name="newNoteName" id="newNoteNameID" value="" placeholder="Note name"/><br/><br/>
+    		<input type="text" name="newNoteDesc" value="" placeholder="Note Desc" ng-keypress="fnAddNote($event)"/><br/><br/>
+    		<input type="text" name="newNoteTime" value="" placeholder="Remind Me.." ng-keypress="fnAddNote($event)"/><br/>
+    	</div>
     </div>
 </div>
 
@@ -10,7 +18,7 @@
     	<input type="text" placeholder="" ="Search Notes" ng-model="noteText" />
     </div>
     <div masonry='{ "transitionDuration" : "0.4s" , "itemSelector" : ".note"}'>
-		<div class="note bg-red" ng-repeat="note in NoteData | filter : noteText" data-id="{{note.id}}" ng-style="{{note.color}}">
+		<div class="note bg-red" ng-repeat="note in NoteData | filter : noteText" data-id="{{note.id}}" ng-style="{{note.color}}" >
 			<span class="note-name">{{note.name}}</span><br />
 			<span class="note-desc">{{note.desc}}</span>
 		</div>
