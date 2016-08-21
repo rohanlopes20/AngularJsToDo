@@ -1,13 +1,15 @@
 <div ng-controller="AddNoteController">
     <div class="add-node-box">
-    	<input type="text" name="newNote" value="" placeholder="Add Note" ng-click="fnAddNoteMain($event)"/>
+    	<input type="text" name="newNote" value="" placeholder="Add Note" ng-click="fnAddNoteMain()"/>
     </div>
-    <div class="wrapper-box" ng-click="closeMe()">
+    <div class="wrapper-box">
     	<div class="wrapper-main">
     		<span>Add new Note</span><br/><br/>
     		<input type="text" name="newNoteName" id="newNoteNameID" value="" placeholder="Note name"/><br/><br/>
-    		<input type="text" name="newNoteDesc" value="" placeholder="Note Desc" ng-keypress="fnAddNote($event)"/><br/><br/>
-    		<input type="text" name="newNoteTime" value="" placeholder="Remind Me.." ng-keypress="fnAddNote($event)"/><br/>
+    		<input type="text" name="newNoteDesc" value="" placeholder="Note Desc" /><br/><br/>
+    		<input type="text" name="newNoteTime" value="" placeholder="Remind Me.." /><br/><br/>
+    		<input type="button" value="Add" ng-click="fnAddNote()" />
+    		<input type="button" value="Close" ng-click="closeMe()" />
     	</div>
     </div>
 </div>
