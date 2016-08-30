@@ -19,7 +19,7 @@ noteApp.controller('AddNoteController', ['$scope', function($scope) {
 	// console.log("In AddNoteController");
 }]);
 
-noteApp.controller('ViewNotesController', ['$scope' ,'$http', function($scope, $http) {
+noteApp.controller('ViewNotesController', ['$scope', '$rootScope' ,'$http', function($scope, $rootScope, $http) {
 	// console.log("In ViewNotesController");
 
     $scope.closeMe = function() {
@@ -27,33 +27,36 @@ noteApp.controller('ViewNotesController', ['$scope' ,'$http', function($scope, $
     }
 
     $scope.fnAddNoteMain = function() {
+        $("[name='newNoteId']").val("");
         $(".wrapper-box, .wrapper-main").show();
     }
 
-    $scope.fnAddNote = function() {
+    $scope.fnAddEditNote = function() {
+        var noteCount       = 0 || ((localStorage.getItem("Notes")) ? JSON.parse(localStorage.getItem("Notes")).length : 0 );
+        var noteId          = $("[name='newNoteId']").val();
 
-        var newNoteName = $("[name='newNoteName']").val();
-        var newNoteDesc = $("[name='newNoteDesc']").val();
-        var newNoteTime = $("[name='newNoteTime']").val();
+        var newNoteName     = $("[name='newNoteName']").val();
+        var newNoteDesc     = $("[name='newNoteDesc']").val();
+        var newNoteTime     = $("[name='newNoteTime']").val();
         var note            = {};
-            note.id         = 2;
+            note.id         = (!noteId) ? noteCount + 1 : noteId;
             note.name       = newNoteName;
             note.desc       = newNoteDesc;
             note.timeOut    = newNoteTime;
 
-            note.color      = { "background-color" : globalColorArray[randomRange(0, globalColorArray.length)] };
+        var NotesArray      = JSON.parse(localStorage.getItem("Notes")) || [];
+        note.color          = (!noteId)? { "background-color" : globalColorArray[randomRange(0, globalColorArray.length)] } : NotesArray[noteId-1].color;
         
-        var NotesArray = JSON.parse(localStorage.getItem("Notes")) || [];
-        $scope.NoteData = NotesArray;
-
         if(newNoteName != "" && newNoteDesc != "") {
-            NotesArray.push(note);
+            // if(noteId) delete NotesArray[noteId];
+            (!noteId)? NotesArray.push(note) : NotesArray[noteId-1] = note;
 
             localStorage.setItem("Notes", JSON.stringify(NotesArray));
             $("[name='newNote']").val("");
             $(".wrapper-box, .wrapper-main").hide();
-            $scope.NoteData = $scope.showNotes();
-            location.reload();
+
+            $rootScope.NoteData = NotesArray;
+
             $scope.closeMe();
         }
     }
@@ -73,7 +76,17 @@ noteApp.controller('ViewNotesController', ['$scope' ,'$http', function($scope, $
         return NotesArray;
 	}
 
-    $scope.NoteData = $scope.showNotes();
+    $scope.editNote = function(noteId) {
+        var NotesArray = JSON.parse(localStorage.getItem("Notes")) || [];
+        console.log(NotesArray);
+        $("[name='newNoteId']").val(noteId);
+        $("[name='newNoteName']").val(NotesArray[noteId-1].name);
+        $("[name='newNoteDesc']").val(NotesArray[noteId-1].desc);
+        $("[name='newNoteTime']").val(NotesArray[noteId-1].timeOut);
+        $(".wrapper-box, .wrapper-main").show();
+    }
+
+    $rootScope.NoteData = $scope.showNotes();
 
 }]);
 
