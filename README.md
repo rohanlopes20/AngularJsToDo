@@ -1,8 +1,9 @@
 # AngularJsToDo
 
-This is simple To Do App using Angular JS and mansory JS.
+This is simple ToDo App using Angular JS. It stores the notes in localStorage of browser.
 
-I will add below features in next cycle.
-  1.  Google Notification API
-  2.  Reminder feature using JS timeOut
-  3.  and some UI improvements
+#### Usage ####
+
+Download and keep ToDo folder in server. I have added support for searching, adding & editing notes. Double click on any note to edit it.
+
+~~Removed mansory js effect as it was not helping in editing notes.~~
