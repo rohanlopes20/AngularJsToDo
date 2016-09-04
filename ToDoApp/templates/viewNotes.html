@@ -1,29 +1,28 @@
-<div ng-controller="AddNoteController">
-    <div class="add-node-box">
+<div ng-controller="ViewNotesController" class="pure-g">
+    <div class="search-box pure-u-5-5">
+        <input type="text" placeholder="" ="Search Notes" ng-model="noteText"/>
+    </div>
+    <div class="add-node-box pure-u-5-5">
     	<input type="text" name="newNote" value="" placeholder="Add Note" ng-click="fnAddNoteMain()"/>
     </div>
-    <div class="wrapper-box">
-    	<div class="wrapper-main">
-    		<span>Add new Note</span><br/><br/>
+    <div class="wrapper-box pure-u-5-5">
+    	<div class="wrapper-main pure-u-5-5">
+    		<span>Add new Note</span>
             <input type="text" name="newNoteId" id="newNoteId" value="" placeholder="Note Id" style="display: none;" /><br/><br/>
     		<input type="text" name="newNoteName" id="newNoteNameID" value="" placeholder="Note name"/><br/><br/>
     		<input type="text" name="newNoteDesc" value="" placeholder="Note Desc" /><br/><br/>
     		<input type="text" name="newNoteTime" value="" placeholder="Remind Me.." /><br/><br/>
-    		<input type="button" value="Add" ng-click="fnAddEditNote()" />
+    		<input type="button" value="Add" ng-click="fnAddNote()" />
     		<input type="button" value="Close" ng-click="closeMe()" />
     	</div>
     </div>
-</div>
-
-<div ng-controller="ViewNotesController">
-    <div class="search-box">
-    	<svg height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
-    	<input type="text" placeholder="" ="Search Notes" ng-model="noteText"/>
-    </div>
-    <div>
-		<div class="note bg-red" ng-repeat="note in NoteData | filter : noteText" ng-dblclick="editNote(note.id)" data-id="{{note.id}}" ng-style="{{note.color}}" >
-			<span class="note-name">{{note.name}}</span><br />
-			<span class="note-desc">{{note.desc}}</span>
-		</div>
+	<div class="note bg-red pure-u-4-24" ng-repeat="note in NoteData | filter : noteText" ng-dblclick="EditNote(note.id)" data-id="{{note.id}}" ng-style="{{note.color}}" >
+		<!--span class="note-name d-note{{note.id}}" ng-style="{{note.color}}">{{note.name}}</span-->
+        <input type="text" name="txtNoteName" id="txtNoteName" disabled="disabled" class="editNote e-note{{note.id}}" value="{{note.name}}" ng-style="{{note.color}}"/>
+        <br />
+		<!--span class="note-desc d-note{{note.id}}">{{note.desc}}</span-->
+        <input type="text" name="txtNoteDesc" id="txtNoteDesc" disabled="disabled" class="editNote e-note{{note.id}}" value="{{note.desc}}" ng-style="{{note.color}}
+        "/>
+        <span class="close-btn" ng-click="DeleteNote(note.id)"><img src="img/close.svg"></span>
 	</div>
 </div>

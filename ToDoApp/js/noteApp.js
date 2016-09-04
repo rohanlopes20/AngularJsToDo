@@ -1,13 +1,13 @@
-var noteApp = angular.module('noteApp', ['ngRoute','masonry']);
+var noteApp = angular.module('noteApp', ['ngRoute']);
 
 noteApp.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
 	when('/viewNotes', {
-	   templateUrl: 'templates/viewNotes.html',
-	   controller: 'ViewNotesController'
+	   templateUrl : 'templates/viewNotes.html',
+	   controller  : 'ViewNotesController'
 	}).
 	otherwise({
-	   redirectTo: '/viewNotes'
+	   redirectTo  : '/viewNotes'
 	});
 }]); 
 
@@ -15,9 +15,6 @@ noteApp.controller('noteAppController', ['$scope', function($scope) {
 	// console.log("In Main controller");
 }]);
 
-noteApp.controller('AddNoteController', ['$scope', function($scope) {
-	// console.log("In AddNoteController");
-}]);
 
 noteApp.controller('ViewNotesController', ['$scope', '$rootScope' ,'$http', function($scope, $rootScope, $http) {
 	// console.log("In ViewNotesController");
@@ -27,29 +24,29 @@ noteApp.controller('ViewNotesController', ['$scope', '$rootScope' ,'$http', func
     }
 
     $scope.fnAddNoteMain = function() {
-        $("[name='newNoteId']").val("");
+        // $("[name='newNoteId']").val("");
+        $(".wrapper-main > input[type='text']").val("","");
         $(".wrapper-box, .wrapper-main").show();
     }
 
-    $scope.fnAddEditNote = function() {
+    $scope.fnAddNote = function() {
+
         var noteCount       = 0 || ((localStorage.getItem("Notes")) ? JSON.parse(localStorage.getItem("Notes")).length : 0 );
-        var noteId          = $("[name='newNoteId']").val();
 
         var newNoteName     = $("[name='newNoteName']").val();
         var newNoteDesc     = $("[name='newNoteDesc']").val();
         var newNoteTime     = $("[name='newNoteTime']").val();
         var note            = {};
-            note.id         = (!noteId) ? noteCount + 1 : noteId;
+            note.id         = noteCount + 1;
             note.name       = newNoteName;
             note.desc       = newNoteDesc;
             note.timeOut    = newNoteTime;
 
         var NotesArray      = JSON.parse(localStorage.getItem("Notes")) || [];
-        note.color          = (!noteId)? { "background-color" : globalColorArray[randomRange(0, globalColorArray.length)] } : NotesArray[noteId-1].color;
+        note.color          = { "background-color" : globalColorArray[randomRange(0, globalColorArray.length)] };
         
         if(newNoteName != "" && newNoteDesc != "") {
-            // if(noteId) delete NotesArray[noteId];
-            (!noteId)? NotesArray.push(note) : NotesArray[noteId-1] = note;
+            NotesArray.push(note);
 
             localStorage.setItem("Notes", JSON.stringify(NotesArray));
             $("[name='newNote']").val("");
@@ -76,14 +73,46 @@ noteApp.controller('ViewNotesController', ['$scope', '$rootScope' ,'$http', func
         return NotesArray;
 	}
 
-    $scope.editNote = function(noteId) {
+    $scope.EditNote = function(noteId) {
         var NotesArray = JSON.parse(localStorage.getItem("Notes")) || [];
-        console.log(NotesArray);
-        $("[name='newNoteId']").val(noteId);
-        $("[name='newNoteName']").val(NotesArray[noteId-1].name);
-        $("[name='newNoteDesc']").val(NotesArray[noteId-1].desc);
-        $("[name='newNoteTime']").val(NotesArray[noteId-1].timeOut);
-        $(".wrapper-box, .wrapper-main").show();
+ 
+        $("input.editNote").attr("disabled","disabled");
+        $("input.editNote").removeClass("n-edit");
+        $("input.e-note" + noteId).addClass("n-edit");
+        $("input.e-note" + noteId).removeAttr("disabled");
+
+        $('input').keydown(function (e) {
+        // console.log(e.key);
+
+            if(e.key == "Enter") {
+                for(var i = 0; i < NotesArray.length; i++){
+                        if(NotesArray[i].id == noteId) {
+                            NotesArray[i].name = $("input.e-note" + noteId + "#txtNoteName").val();
+                            NotesArray[i].desc = $("input.e-note" + noteId + "#txtNoteDesc").val();
+                            break;
+                        }
+                }
+
+                localStorage.setItem("Notes", JSON.stringify(NotesArray));
+                $("input.editNote").attr("disabled","disabled");
+                $("input.editNote").removeClass("n-edit");
+            }
+        });
+    }
+
+    $scope.DeleteNote = function(noteId) {
+        var NotesArray = JSON.parse(localStorage.getItem("Notes")) || [];
+        var objNewNotes = [];
+        var count = 0;
+
+        for(var i = 0; i < NotesArray.length; i++){
+                if(NotesArray[i].id != noteId) {
+                    objNewNotes[count] = NotesArray[i];
+                    count++;
+                }
+        }
+        localStorage.setItem("Notes", JSON.stringify(objNewNotes));
+        $rootScope.NoteData = $scope.showNotes();
     }
 
     $rootScope.NoteData = $scope.showNotes();

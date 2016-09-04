@@ -10,9 +10,16 @@ body {
     font-size: 19px;
     box-shadow: 3px 8px 5px #888888;
     background-color    : #DC3023;
-    z-index: -1;
+    z-index: 9;
 }
-
+html,body{
+    margin: 0;
+    padding: 0;
+}
+.close-btn img {
+    height: 15px;
+    float: right;
+}
 .grid-item { width: 200px; }
 
 .note-name {
@@ -23,32 +30,34 @@ body {
      font-weight: 500;
      font-size: 12px;
 }
-.search-box input{
-    padding: 8px 20px;
-    width: 90%;
-    border: 1px solid red;
+.search-box input {
+    padding: 16px 27px;
+    width: 433px;
     border-radius: 18px;
     outline: none;
 }
 .search-box {
-    margin: 20px auto;
+    margin: 0px auto;
     display: block;
     text-align: center;
+    background-color: #9D2933;
+    padding: 13px 250px;
 }
-.add-node-box input{
+.add-node-box input {
     border: 1px solid red;
     outline: none;
-    padding: 8px 8px;
-    width: 80%;
+    padding: 12px 16px;
+    border-radius: 6px;
+    width: 400px;
+    box-shadow: 4px 7px 2px #88888B;
 }
-.add-node-box{
+.add-node-box {
     margin: 20px auto;
     display: block;
     text-align: center;
     padding: 16px 200px;
-    background-color: #9D2933;
 }
-.wrapper-box{
+.wrapper-box {
     background-color: #C3272B;
     opacity: 1;
     position: fixed;
@@ -62,11 +71,12 @@ body {
 .wrapper-main {
     margin: 14% auto;
     border: 1px solid black;
-    width: 432px;
-    padding: 53px 51px;
-    background-color:#D24D57;
+    width: 400px;
+    padding: 25px 25px;
+    background-color: #D24D57;
     z-index: 9999;
     display: none;
+    border-radius: 12px;
     font-family: 'Roboto','Droid Sans',arial,sans-serif;
     font-weight: 500;
     font-size: 19px;
@@ -81,9 +91,22 @@ body {
     width: 90%;
 }
 .wrapper-main span {
-     text-align: center;
+    color: #fff;
+    font-size: 16pt;
+    font-weight: 600;
 }
 .wrapper-main input[type="button"] {
     font-family: 'Roboto','Droid Sans',arial,sans-serif;
-    padding: 10px 21px;
+    padding: 8px 22px;
+    margin-left: 26px;
+    border-radius: 7px;
+}
+.editNote {
+    padding: 7px 0;
+    width: 134px;
+    outline: none;
+    border: none;
+}
+.n-edit {
+    border-bottom: 1px solid gray;
 }
